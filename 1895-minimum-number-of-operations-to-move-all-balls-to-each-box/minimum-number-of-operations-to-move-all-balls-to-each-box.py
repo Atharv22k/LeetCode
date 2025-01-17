@@ -4,22 +4,25 @@ class Solution:
     def minOperations(self, boxes: str) -> List[int]:
         n = len(boxes)
         answer = [0] * n
-
-        # Pass from left to right
-        count = 0
-        ops = 0
+        
+        # First pass: from left to right
+        total_balls = 0
+        operations = 0
+        
         for i in range(n):
-            answer[i] += ops
-            count += int(boxes[i])
-            ops += count
-
-        # Pass from right to left
-        count = 0
-        ops = 0
+            answer[i] += operations
+            if boxes[i] == '1':
+                total_balls += 1
+            operations += total_balls
+        
+        # Second pass: from right to left
+        total_balls = 0
+        operations = 0
+        
         for i in range(n - 1, -1, -1):
-            answer[i] += ops
-            count += int(boxes[i])
-            ops += count
-
+            answer[i] += operations
+            if boxes[i] == '1':
+                total_balls += 1
+            operations += total_balls
+        
         return answer
-
